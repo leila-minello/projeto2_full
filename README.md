@@ -1,1 +1,9 @@
-# projeto2_full
+# PROJETO API (LAST.FM)
+
+# DESCRIÇÃO
+
+# FUNCIONALIDADES
+
+# ARQUITETURA
+
+# CONCLUSÃO
