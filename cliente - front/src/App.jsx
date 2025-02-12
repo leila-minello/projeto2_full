@@ -22,17 +22,17 @@ const theme = createTheme({
 
 const App = () => {
   return (
+    <Router>
     <ThemeProvider theme={theme}>
     <CssBaseline />
-    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/artist/:artistName" element={<ArtistPage />} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
       </Routes>
-    </Router>
   </ThemeProvider>
+    </Router>
 );
 };
 
