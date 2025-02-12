@@ -23,7 +23,7 @@ const ArtistPage = () => {
     const artistData = { name, favSong, genre, popularity: Number(popularity)};
 
     try {
-      const response = await fetch("http://localhost:5173/api/artists", {
+      const response = await fetch("http://localhost:5173/artists", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
