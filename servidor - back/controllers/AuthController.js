@@ -24,3 +24,8 @@ exports.login = async (req, res) => {
 
   res.json({ message: "Login bem-sucedido" });
 };
+
+exports.logout = (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logout bem-sucedido" });
+};
