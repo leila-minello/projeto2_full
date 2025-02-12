@@ -45,7 +45,7 @@ const Login = () => {
             required
             />
             <button type="submit">Entrar</button>
-            <p>Ainda não está cadastrado? <Link to="/register">Cadastre-se</Link> agora!!</p>
+            <p>Ainda não está cadastrado? <Link to="/Register">Cadastre-se</Link> agora!!</p>
         </form>
     </div>
     );
