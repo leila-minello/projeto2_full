@@ -21,13 +21,13 @@ const logger = winston.createLogger({
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors()); 
+console.log('MongoDB URI:', process.env.MONGO_URI);  
+
+app.use(cors());
 app.use(express.json());
 app.use(compression());
 
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
   maxPoolSize: 10,
 })
   .then(() => logger.info('Conectado ao MongoDB'))
