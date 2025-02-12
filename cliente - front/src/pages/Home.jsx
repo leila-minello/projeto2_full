@@ -77,17 +77,16 @@ const Home = () => {
       >Logout</Button>
 ) : (
 
-    <Link to="/login">
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{
-          mb: 3,
-          backgroundColor: "black",
-          "&:hover": { backgroundColor: "white", color: "black" },
-        }}
-      >Login</Button>
-    </Link>
+  <Button
+    variant="contained"
+    color="primary"
+    sx={{
+      mb: 3,
+      backgroundColor: "black",
+      "&:hover": { backgroundColor: "white", color: "black" },
+    }}
+    onClick={() => navigate("/login")}
+  >Login</Button>
 
     )}
 
