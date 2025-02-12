@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ArtistPage from "./pages/ArtistPage"; 
+import Login from "./pages/Login";
 
 const theme = createTheme({
   palette: {
@@ -26,6 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/artist/:artistName" element={<ArtistPage />} />
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </Router>
   </ThemeProvider>
