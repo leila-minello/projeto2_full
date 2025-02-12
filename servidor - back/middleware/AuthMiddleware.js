@@ -1,18 +1,16 @@
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv').config();
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  if (!token) {
-    return res.status(401).json({ message: 'Acesso negado. Token não fornecido.' });
-  }
+  const token = req.cookies.token;
+  if (!token) return res.status(403).json({ message: "Acesso negado" });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
+    req.user = decoded;
     next();
-  } catch (err) {
-    return res.status(400).json({ message: 'Token inválido.' });
+  } catch (error) {
+    res.status(401).json({ message: "Token inválido" });
   }
 };
 

@@ -1,13 +1,11 @@
-const express = require('express');
-const artistController = require('../controllers/artistController');
-const authMiddleware = require('../middleware/AuthMiddleware');
+const express = require("express");
+const authController = require("../controllers/AuthController");
+const authMiddleware = require("../middleware/AuthMiddleware");
 
 const router = express.Router();
 
-router.use(authMiddleware);
-router.get('/', artistController.getArtists);
-router.post('/', artistController.createArtist);
-router.get('/:artistId/tracks', artistController.getTracksByArtist);
-router.post('/:artistId/tracks', artistController.createTrack);
+router.post("/login", authController.login);
+
+router.post("/logout", authMiddleware, authController.logout);
 
 module.exports = router;
