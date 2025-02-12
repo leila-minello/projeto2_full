@@ -8,28 +8,17 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   const handleSearch = async () => {
-    if (!artist.trim()) {
-      setError("O campo não pode estar vazio.");
-      return;
-    }
-
     try {
-      setError(null);
-      const API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
-      const url = `https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${encodeURIComponent(
-        artist
-      )}&api_key=${API_KEY}&format=json`;
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("Erro ao buscar os dados.");
-      }
-
+      const response = await fetch('http://localhost:5000/api/artists', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       const data = await response.json();
-      setResult(data.results.artistmatches.artist.slice(0, 5));
+      setResult(data);
     } catch (err) {
-      setError("Não foi possível buscar os dados. Tente novamente mais tarde.");
+      setError('Erro ao buscar artistas.');
     }
   };
 
