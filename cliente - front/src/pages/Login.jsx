@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; 
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => { 
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", { 
+      console.log("Enviando requisição para o backend...");
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -18,24 +19,35 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      console.log("Resposta recebida:", response);
 
-      if (response.ok) {
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Erro no login: ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log("Dados da resposta:", data);
+
+      if (data.token) {
         localStorage.setItem("token", data.token);
         alert("Login realizado!! Bem-vindo(a) :)");
-        navigate("/"); 
+        navigate("/");
       } else {
-        alert(data.message || "Erro no login :(");
+        alert("Erro no login: Token não recebido.");
       }
     } catch (error) {
-      alert("Erro ao conectar ao servidor. Verifique se a API está rodando.");
+      console.error("Erro na requisição:", error);
+      alert(error.message || "Erro ao conectar ao servidor.");
     }
   };
 
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}> {}
+      <form onSubmit={handleLogin}>
+        {" "}
+        {}
         <input
           type="email"
           placeholder="E-mail"

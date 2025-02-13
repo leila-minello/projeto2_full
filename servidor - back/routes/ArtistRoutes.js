@@ -1,5 +1,5 @@
 const express = require('express');
-const artistController = require('../controllers/artistController');
+const artistController = require('../controllers/ArtistController');
 const authMiddleware = require('../middleware/AuthMiddleware'); 
 
 const router = express.Router();
