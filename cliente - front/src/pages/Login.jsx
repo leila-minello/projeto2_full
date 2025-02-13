@@ -6,49 +6,45 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    try {
-      console.log("Enviando requisição para o backend...");
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
-      });
-
-      console.log("Resposta recebida:", response);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Erro no login: ${errorText}`);
-      }
-
-      const data = await response.json();
-      console.log("Dados da resposta:", data);
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        alert("Login realizado!! Bem-vindo(a) :)");
-        navigate("/");
-      } else {
-        alert("Erro no login: Token não recebido.");
-      }
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-      alert(error.message || "Erro ao conectar ao servidor.");
+    if (!email || !password) {
+      console.error("Por favor, preencha todos os campos");
+      return;
     }
+
+    fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro na requisição");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Resposta recebida:", data);
+        if (data && data.token) {
+          console.log("Token:", data.token);
+        } else {
+          console.error("Erro no login:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Erro na requisição:", error);
+      });
   };
 
   return (
     <div>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        {" "}
-        {}
         <input
           type="email"
           placeholder="E-mail"

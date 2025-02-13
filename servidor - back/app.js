@@ -52,13 +52,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(compression());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://192.168.1.2:5000"); // Ou "*"
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
+app.use(cors({
+  origin: 'http://192.168.1.2:5000', // Defina a origem correta, onde o frontend está rodando
+  credentials: true // Permite que cookies ou credenciais sejam enviados
+}));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/artists", artistRoutes);

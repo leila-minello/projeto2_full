@@ -36,9 +36,6 @@ const seedUsers = async () => {
 
     await User.insertMany(hashedUsers);
     console.log("✅ Usuários predefinidos criados com sucesso");
-
-    mongoose.connection.close();
-    console.log("🔚 Conexão encerrada");
   } catch (error) {
     console.error("❌ Erro ao criar usuários:", error);
     mongoose.connection.close();
