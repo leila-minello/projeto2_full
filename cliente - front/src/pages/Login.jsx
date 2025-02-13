@@ -10,7 +10,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:27017/api/auth/login", { 
+      const response = await fetch("http://localhost:5000/api/auth/login", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,10 +51,6 @@ const Login = () => {
           required
         />
         <button type="submit">Entrar</button>
-        <p>
-          Ainda não está cadastrado?{" "}
-          <Link to="/register">Cadastre-se</Link> agora!!
-        </p>
       </form>
     </div>
   );

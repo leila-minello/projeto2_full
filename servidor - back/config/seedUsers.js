@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv').config();
 const User = require('../models/User');
-const db = require('./db');
+const connectDB = require('./db');
 
 const users = [
   {
@@ -21,7 +21,7 @@ const users = [
 
 const seedUsers = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await connectDB();
     console.log('🔹 Conectado ao MongoDB');
 
     await User.deleteMany();
