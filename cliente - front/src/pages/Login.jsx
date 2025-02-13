@@ -37,7 +37,7 @@ const Login = () => {
         if (data && data.token) {
           localStorage.setItem("authToken", data.token);
           console.log("Token:", data.token);
-          navigate("/api/artists"); 
+          navigate("/"); 
         } else {
           setError(data.message || "Erro no login.");
         }
