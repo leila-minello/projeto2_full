@@ -23,20 +23,6 @@ const logger = winston.createLogger({
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(cors({
-  origin: "*", // ou a URL do seu frontend
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-console.log("MongoDB URI:", process.env.MONGO_URI);
-
-app.use(cookieParser());
-
-
-app.use(express.json());
-app.use(compression());
-
 mongoose
   .connect(process.env.MONGO_URI, {
     maxPoolSize: 10,
@@ -49,6 +35,30 @@ mongoose
       .catch((err) => logger.error("❌ Erro ao criar usuários:", err));
   })
   .catch((err) => logger.error("Erro ao conectar ao MongoDB:", err));
+
+app.use(
+  cors({
+    origin: "http://192.168.1.2:5000", // Ou "*", mas isso pode ser menos seguro
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, 
+  })
+);
+
+console.log("MongoDB URI:", process.env.MONGO_URI);
+
+app.use(cookieParser());
+
+app.use(express.json());
+app.use(compression());
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://192.168.1.2:5000"); // Ou "*"
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/artists", artistRoutes);
