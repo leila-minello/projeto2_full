@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ArtistPage from "./pages/ArtistPage"; 
 import Login from "./pages/Login";
+import Principal from "./pages/Principal"
 
 const theme = createTheme({
   palette: {
@@ -26,8 +27,9 @@ const App = () => {
     <CssBaseline />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/artist/:artistName" element={<ArtistPage />} />
+        <Route path="/artist" element={<ArtistPage />} />
         <Route path="/login" element={<Login/>}/>
+        <Route path="/principal" element={<Principal/>}/>
       </Routes>
   </ThemeProvider>
     </Router>
