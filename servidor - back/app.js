@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const winston = require("winston");
 const authRoutes = require("./routes/AuthRoutes");
 const artistRoutes = require("./routes/ArtistRoutes");
+const seedUsers = require("./config/seedUsers");
 
 dotenv.config();
 
@@ -38,7 +39,13 @@ mongoose
   .connect(process.env.MONGO_URI, {
     maxPoolSize: 10,
   })
-  .then(() => logger.info("Conectado ao MongoDB"))
+  .then(() => {
+    logger.info("Conectado ao MongoDB");
+
+    seedUsers()
+      .then(() => logger.info("✅ Usuários predefinidos criados com sucesso"))
+      .catch((err) => logger.error("❌ Erro ao criar usuários:", err));
+  })
   .catch((err) => logger.error("Erro ao conectar ao MongoDB:", err));
 
 app.use("/api/auth", authRoutes);
