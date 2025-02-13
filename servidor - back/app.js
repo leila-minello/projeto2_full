@@ -8,6 +8,7 @@ const winston = require("winston");
 const authRoutes = require("./routes/AuthRoutes");
 const artistRoutes = require("./routes/ArtistRoutes");
 const seedUsers = require("./config/seedUsers");
+const seedArtists = require("./config/seedArtists");
 
 dotenv.config();
 
@@ -33,6 +34,10 @@ mongoose
     seedUsers()
       .then(() => logger.info("✅ Usuários predefinidos criados com sucesso"))
       .catch((err) => logger.error("❌ Erro ao criar usuários:", err));
+    seedArtists()
+      .then(() => logger.info("✅ Artistas predefinidos criados com sucesso"))
+      .catch((err) => logger.error("❌ Erro ao criar artistas:", err));
+    
   })
   .catch((err) => logger.error("Erro ao conectar ao MongoDB:", err));
 
