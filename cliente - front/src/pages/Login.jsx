@@ -37,8 +37,7 @@ const Login = () => {
         if (data && data.token) {
           localStorage.setItem("authToken", data.token);
           console.log("Token:", data.token);
-          navigate("/", { replace: true });
-          window.location.reload(); 
+          navigate("/");
         } else {
           setError(data.message || "Erro no login.");
         }

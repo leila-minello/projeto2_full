@@ -10,8 +10,17 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setLogged(!!token);
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      setLogged(!!token);
+    };
+  
+    window.addEventListener("storage", checkAuth);
+    checkAuth(); 
+  
+    return () => {
+      window.removeEventListener("storage", checkAuth);
+    };
   }, []);
 
   const handleSearch = async () => {
