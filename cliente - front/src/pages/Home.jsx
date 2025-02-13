@@ -22,7 +22,7 @@ const Home = () => {
 
 
     try {
-      const response = await fetch('http://localhost:5000/api/artists', {
+      const response = await fetch('http://localhost:27017/api/artists', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
