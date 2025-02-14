@@ -43,7 +43,7 @@ mongoose
 
 app.use(
   cors({
-    origin: "http://192.168.1.2:5000", // Ou "*", mas isso pode ser menos seguro
+    origin: "http://192.168.1.2:5000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true, 
@@ -58,8 +58,8 @@ app.use(express.json());
 app.use(compression());
 
 app.use(cors({
-  origin: 'http://192.168.1.2:5000', // Defina a origem correta, onde o frontend está rodando
-  credentials: true // Permite que cookies ou credenciais sejam enviados
+  origin: 'http://192.168.1.2:5000', 
+  credentials: true 
 }));
 
 app.use("/api/auth", authRoutes);

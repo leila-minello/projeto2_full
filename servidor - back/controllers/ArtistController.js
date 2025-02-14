@@ -1,11 +1,17 @@
 const Artist = require('../models/Artist');
+exports.getArtistByName = async (req, res) => {
+  const { name } = req.query;
 
-exports.getArtists = async (req, res) => {
   try {
-    const artists = await Artist.find({ createdBy: req.userId });
-    res.json(artists);
+    const artist = await Artist.findOne({ name });
+
+    if (!artist) {
+      return res.status(404).json({ message: 'Artista não encontrado.' });
+    }
+
+    res.json(artist);
   } catch (err) {
-    res.status(500).json({ message: 'Erro ao buscar artistas.' });
+    res.status(500).json({ message: 'Erro ao buscar artista.' });
   }
 };
 
@@ -17,7 +23,6 @@ exports.createArtist = async (req, res) => {
       name,
       genre,
       popularity,
-      createdBy: req.userId,
     });
     await newArtist.save();
     res.status(201).json(newArtist);
